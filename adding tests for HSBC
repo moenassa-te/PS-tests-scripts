@@ -1,0 +1,66 @@
+import requests
+import json
+
+# Define the API endpoint URL
+api_url = "https://api.thousandeyes.com"
+
+# Define the payload as a dictionary
+payload = {
+    "interval": 120,
+    "agents": [
+        {"agentId": 1066441},
+        {"agentId": 1066581}
+    ],
+    "testName": "WAN_Monitoring_APAC_ATM_HK252---RA520",
+    "server": "130.85.48.1",
+    "protocol": "TCP",
+    "ipv6Policy": "USE_AGENT_POLICY",
+    "networkMeasurements": 1,
+    "mtuMeasurements": 1,
+    "bandwidthMeasurements": 0,
+    "bgpMeasurements": 1,
+    "usePublicBgp": 1,
+    "dscpId": 0,
+    "liveShare": 0,
+    "pingPayloadSize": -1,
+    "probeMode": "AUTO",
+    "continuousMode": 0,
+    "pathTraceMode": "classic",
+    "description": "HK ATM",
+    "numPathTraces": 3,
+    "dscp": "Best Effort (DSCP 0)",
+    "port": 80,
+    "alertsEnabled": 1,
+    "alertRules": [
+        {"ruleId": 8188179}
+    ],
+    "groups": [
+        {
+            "name": "APAC_HK_ATM",
+            "groupId": 751766,
+            "type": "tests",
+            "builtin": 0
+        }
+    ],
+    "enabled": 1
+}
+
+# Convert the payload to JSON format
+json_payload = json.dumps(payload)
+
+# Define headers if necessary (e.g., for authentication)
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer YOUR_API_TOKEN"  # Include your authentication token here if required
+}
+
+# Make the API POST request
+response = requests.post(api_url, data=json_payload, headers=headers)
+
+# Check the response
+if response.status_code == 200:
+    print("API call successful")
+    print(response.json())  # Print the response content
+else:
+    print(f"API call failed with status code: {response.status_code}")
+    print(response.text)  # Print the error message or response content
